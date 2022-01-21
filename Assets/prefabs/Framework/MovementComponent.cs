@@ -14,8 +14,9 @@ public class MovementComponent : MonoBehaviour
     [SerializeField] Transform GroundCheck;
     [SerializeField] float GroundCheckRadius = 0.1f;
     [SerializeField] LayerMask GroundLayerMask;
-
+    
     Vector2 MoveInput;
+    float SpeedMultiplier = 1f;
     Vector3 Velocity;
     float Gravity = -9.8f;
     CharacterController characterController;
@@ -96,8 +97,8 @@ public class MovementComponent : MonoBehaviour
             Velocity.y = -0.2f;
         }
 
-        Velocity.x = GetPlayerDesiredMoveDir().x * WalkingSpeed;
-        Velocity.z = GetPlayerDesiredMoveDir().z * WalkingSpeed;
+        Velocity.x = GetPlayerDesiredMoveDir().x * (WalkingSpeed * SpeedMultiplier);
+        Velocity.z = GetPlayerDesiredMoveDir().z * (WalkingSpeed * SpeedMultiplier);
         Velocity.y += Gravity * Time.deltaTime;
 
 
@@ -236,5 +237,12 @@ public class MovementComponent : MonoBehaviour
             transform.rotation = Quaternion.Lerp(StartRot, EndRot, timmer / transformTime);
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    public void SetSpeedMultipier(Vector2 input)
+    {
+        float DistanceBetweenJoystickAndCenter = Vector2.Distance(new Vector2(0, 0), input);
+        SpeedMultiplier = DistanceBetweenJoystickAndCenter / 100.0f;
+        Debug.Log(SpeedMultiplier);
     }
 }

@@ -127,6 +127,23 @@ public class Player : Character
         }
     }
 
+    public void MoveInputUpdatedOnMobileInput(Vector3 input)
+    {
+        Vector2 inputAsVector2 = Vector2.ClampMagnitude(input,1);
+        movementComp.SetMovementInput(inputAsVector2);
+        movementComp.SetSpeedMultipier(input);
+        if(input.magnitude==0)
+        {
+            BackToIdleCoroutine = StartCoroutine(DelayedBackToIdle());
+        }else
+        {
+            if(BackToIdleCoroutine!=null)
+            {
+                StopCoroutine(BackToIdleCoroutine);
+                BackToIdleCoroutine = null;
+            }
+        }
+    }
     IEnumerator DelayedBackToIdle()
     {
         yield return new WaitForSeconds(0.1f);
