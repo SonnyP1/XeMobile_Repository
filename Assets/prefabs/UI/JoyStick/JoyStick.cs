@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class JoyStick : MonoBehaviour , IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     [SerializeField] RectTransform handleTransform;
     [SerializeField] RectTransform backGroundTransform;
-    [SerializeField] Player PlayerComp;
-
-    private Vector2 handleLocalPostionInVector2;
+    Vector2 JoyStickInput;
+    public Vector2 GetJoyStickInput()
+    {
+        return JoyStickInput;
+    }
     public void OnDrag(PointerEventData eventData)
     {
         //Debug.Log("Drag");
@@ -19,7 +21,7 @@ public class JoyStick : MonoBehaviour , IPointerDownHandler, IDragHandler, IPoin
         Debug.DrawLine(DragPos,BgPos);
 
         handleTransform.localPosition = Vector2.ClampMagnitude(DragPos - BgPos,backGroundTransform.rect.width/2);
-        PlayerComp.MoveInputUpdatedOnMobileInput( handleTransform.localPosition);
+        JoyStickInput = handleTransform.localPosition;
     }
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -30,7 +32,7 @@ public class JoyStick : MonoBehaviour , IPointerDownHandler, IDragHandler, IPoin
     {
         //Debug.Log("PointerUp");
         handleTransform.position = backGroundTransform.position;
-        PlayerComp.MoveInputUpdatedOnMobileInput(new Vector2(0,0));
+        JoyStickInput = new Vector2(0, 0);
     }
 
     void Start()

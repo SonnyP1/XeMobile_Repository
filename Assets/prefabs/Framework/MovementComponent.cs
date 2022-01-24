@@ -20,8 +20,8 @@ public class MovementComponent : MonoBehaviour
     Vector3 Velocity;
     float Gravity = -9.8f;
     CharacterController characterController;
-    bool LookAtCursor = true;
-    Vector2 CursorPos;
+    //bool LookAtCursor = true;
+    Vector2 AimJoyStickPos;
 
     #region Floor Follow
     Transform currentFloor;
@@ -34,14 +34,15 @@ public class MovementComponent : MonoBehaviour
     bool isClimbing;
     Vector3 ClimbingLadderDir;
 
-    public void SetCursorPos(Vector2 cursorPos)
+    public void SetAimJoyStickPos(Vector2 joystickPos)
     {
-        CursorPos = cursorPos;
+        AimJoyStickPos = joystickPos;
     }
 
+    /*
     Vector3 GetCursorDir()
     {
-        Ray ray = Camera.main.ScreenPointToRay(CursorPos);
+        Ray ray = Camera.main.ScreenPointToRay(AimJoyStickPos);
         float CameraHeight = Camera.main.transform.position.y - (transform.position.y + characterController.height);
         float CosAngle = Vector3.Dot(Vector3.down, ray.direction);
         float traceDistance = CameraHeight / CosAngle;
@@ -52,6 +53,7 @@ public class MovementComponent : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + flatDirToTestPos);
         return flatDirToTestPos.normalized;
     }
+    */
 
     public void SetClimbingStatus(bool climbing, Vector3 climbingLadderDir)
     {
@@ -97,8 +99,7 @@ public class MovementComponent : MonoBehaviour
             Velocity.y = -0.2f;
         }
 
-        Velocity.x = GetPlayerDesiredMoveDir().x * (WalkingSpeed * SpeedMultiplier);
-        Velocity.z = GetPlayerDesiredMoveDir().z * (WalkingSpeed * SpeedMultiplier);
+        Velocity = GetPlayerDesiredMoveDir() * (WalkingSpeed *  SpeedMultiplier);
         Velocity.y += Gravity * Time.deltaTime;
 
 
@@ -122,14 +123,23 @@ public class MovementComponent : MonoBehaviour
     }
     public Vector3 GetPlayerDesiredMoveDir()
     {
-        return new Vector3(-MoveInput.y, 0f, MoveInput.x).normalized;
-    }
 
+        //Move input x is left right move input z is up and down
+        return InputAxisToWorldDir(MoveInput);
+    }
+    private Vector3 InputAxisToWorldDir(Vector2 input)
+    {
+        Vector3 CameraRight = Camera.main.transform.right;
+        Vector3 FrameUp = Vector3.Cross(Vector3.up, CameraRight);
+
+        //Move input x is left right move input z is up and down
+        return CameraRight * input.x + FrameUp * -input.y;
+    }
     public Vector3 GetPlayerDesiredLookDir()
     {
-        if (LookAtCursor)
+        if (AimJoyStickPos.magnitude != 0)
         {
-            return GetCursorDir();
+            return InputAxisToWorldDir(AimJoyStickPos);
         } else
         {
             return GetPlayerDesiredMoveDir();
@@ -239,10 +249,9 @@ public class MovementComponent : MonoBehaviour
         }
     }
 
-    public void SetSpeedMultipier(Vector2 input)
+    public void SetSpeedMultipierBaseOnJoystickDistanceFromCenter(Vector2 input)
     {
         float DistanceBetweenJoystickAndCenter = Vector2.Distance(new Vector2(0, 0), input);
         SpeedMultiplier = DistanceBetweenJoystickAndCenter / 100.0f;
-        Debug.Log(SpeedMultiplier);
     }
 }

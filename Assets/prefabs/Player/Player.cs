@@ -12,12 +12,19 @@ public class Player : Character
     int speedHash = Animator.StringToHash("speed");
     Coroutine BackToIdleCoroutine;
     InGameUI inGameUI;
+    CameraManager cameraManager;
 
+    [Header("Joysticks")]
+    [SerializeField] JoyStick MovementJoyStick;
+    [SerializeField] JoyStick AimingJoyStick;
+
+    [Header("Weapons")]
     [SerializeField] Weapon[] StartWeaponPrefabs;
     [SerializeField] Transform GunSocket;
     List<Weapon> Weapons;
     Weapon CurrentWeapon;
     int currentWeaponIndex = 0;
+    Vector2 moveInput;
     private void Awake()
     {
         inputActions = new InputActions();
@@ -80,7 +87,7 @@ public class Player : Character
         inputActions.Gameplay.NextWeapon.performed += NextWeapon;
         animator.SetTrigger("BackToIdle");
         InitializeWeapons();
-
+        cameraManager = FindObjectOfType<CameraManager>();
 
     }
 
@@ -97,29 +104,57 @@ public class Player : Character
 
     private void MainActionReleased(InputAction.CallbackContext obj)
     {
-        animator.SetLayerWeight(animator.GetLayerIndex("UpperBody"), 0);
+        StopFire();
     }
 
     private void MainActionButtonDown(InputAction.CallbackContext obj)
     {
+        Fire();
+    }
+    private void Fire()
+    {
         animator.SetLayerWeight(animator.GetLayerIndex("UpperBody"), 1);
     }
-
+    private void StopFire()
+    {
+        animator.SetLayerWeight(animator.GetLayerIndex("UpperBody"), 0);
+    }
     private void CursorPosUpdated(InputAction.CallbackContext obj)
     {
-        movementComp.SetCursorPos(obj.ReadValue<Vector2>());
+        //movementComp.SetAimJoyStickPos(obj.ReadValue<Vector2>());
     }
 
     private void MoveInputUpdated(InputAction.CallbackContext ctx)
     {
         Vector2 input = ctx.ReadValue<Vector2>().normalized;
         movementComp.SetMovementInput(input);
-        if(input.magnitude==0)
+
+        UpdateAnimationBasedOnMovement(input);
+    }
+
+    private void MoveInputUpdatedOnMobileInput()
+    {
+        Vector2 input = MovementJoyStick.GetJoyStickInput();
+
+        moveInput = input;
+        movementComp.SetSpeedMultipierBaseOnJoystickDistanceFromCenter(input);
+
+        Vector2 inputAsMagnitudeOfOne = Vector2.ClampMagnitude(input, 1);
+        movementComp.SetMovementInput(inputAsMagnitudeOfOne);
+
+        moveInput = inputAsMagnitudeOfOne;
+        UpdateAnimationBasedOnMovement(input);
+    }
+
+    private void UpdateAnimationBasedOnMovement(Vector3 input)
+    {
+        if (input.magnitude == 0)
         {
             BackToIdleCoroutine = StartCoroutine(DelayedBackToIdle());
-        }else
+        }
+        else
         {
-            if(BackToIdleCoroutine!=null)
+            if (BackToIdleCoroutine != null)
             {
                 StopCoroutine(BackToIdleCoroutine);
                 BackToIdleCoroutine = null;
@@ -127,23 +162,6 @@ public class Player : Character
         }
     }
 
-    public void MoveInputUpdatedOnMobileInput(Vector3 input)
-    {
-        Vector2 inputAsVector2 = Vector2.ClampMagnitude(input,1);
-        movementComp.SetMovementInput(inputAsVector2);
-        movementComp.SetSpeedMultipier(input);
-        if(input.magnitude==0)
-        {
-            BackToIdleCoroutine = StartCoroutine(DelayedBackToIdle());
-        }else
-        {
-            if(BackToIdleCoroutine!=null)
-            {
-                StopCoroutine(BackToIdleCoroutine);
-                BackToIdleCoroutine = null;
-            }
-        }
-    }
     IEnumerator DelayedBackToIdle()
     {
         yield return new WaitForSeconds(0.1f);
@@ -168,8 +186,25 @@ public class Player : Character
     {
         base.Update();
         UpdateAnimation();
+
+        cameraManager.UpdateCamera(transform.position, moveInput, AimingJoyStick.GetJoyStickInput().magnitude > 0);
+        MoveInputUpdatedOnMobileInput();
+        UpdateAimingJoyStick();
     }
-    
+
+    private void UpdateAimingJoyStick()
+    {
+        movementComp.SetAimJoyStickPos(AimingJoyStick.GetJoyStickInput());
+        if (AimingJoyStick.GetJoyStickInput().magnitude > 0)
+        {
+            Fire();
+        }
+        else
+        {
+            StopFire();
+        }
+    }
+
     public void FireTimePoint()
     {
         if(CurrentWeapon!=null)
