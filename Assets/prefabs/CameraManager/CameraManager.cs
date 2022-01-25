@@ -16,6 +16,7 @@ public class CameraManager : MonoBehaviour
         _mainCamera = Camera.main;
     }
 
+    //WIP FIX DAMPING
     public void UpdateCamera(Vector3 playerPosition,Vector2 playerMoveInput, bool lockCamera)
     {
         transform.position = playerPosition;

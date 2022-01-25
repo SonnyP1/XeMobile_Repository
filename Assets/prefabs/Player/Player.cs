@@ -84,19 +84,28 @@ public class Player : Character
         inputActions.Gameplay.MainAction.performed += MainActionButtonDown;
         inputActions.Gameplay.MainAction.canceled += MainActionReleased;
         inputActions.Gameplay.Space.performed += BigAction;
-        inputActions.Gameplay.NextWeapon.performed += NextWeapon;
+        inputActions.Gameplay.NextWeapon.performed += NextWeaponInput;
         animator.SetTrigger("BackToIdle");
         InitializeWeapons();
         cameraManager = FindObjectOfType<CameraManager>();
 
     }
 
-    private void NextWeapon(InputAction.CallbackContext obj)
+    private void NextWeaponInput(InputAction.CallbackContext obj)
+    {
+        NextWeapon();
+    }
+
+    public void OnBTNClickedNextWeapon()
+    {
+        NextWeapon();
+    }
+
+    private void NextWeapon()
     {
         currentWeaponIndex = (currentWeaponIndex + 1) % Weapons.Count;
         EquipWeapon(currentWeaponIndex);
     }
-
     private void BigAction(InputAction.CallbackContext obj)
     {
         animator.SetTrigger("BigAction");

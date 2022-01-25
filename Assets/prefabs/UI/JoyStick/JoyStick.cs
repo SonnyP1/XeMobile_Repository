@@ -14,7 +14,6 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     }
     public void OnDrag(PointerEventData eventData)
     {
-        //Debug.Log("Drag");
         Vector2 DragPos = eventData.position;
         Vector2 BgPos = backGroundTransform.position;
 
@@ -25,12 +24,11 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        //Debug.Log("PointerDown");
+        transform.position = eventData.position;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        //Debug.Log("PointerUp");
         handleTransform.position = backGroundTransform.position;
         JoyStickInput = new Vector2(0, 0);
     }
