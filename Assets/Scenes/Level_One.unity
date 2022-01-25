@@ -1734,10 +1734,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1704155634}
     m_Modifications:
+    - target: {fileID: 5400187492434627325, guid: 4a9a0c5575b96944eb512d58dee9e1de, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 430
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400187492434627325, guid: 4a9a0c5575b96944eb512d58dee9e1de, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 330
+      objectReference: {fileID: 0}
     - target: {fileID: 7106078409430596244, guid: 4a9a0c5575b96944eb512d58dee9e1de, type: 3}
       propertyPath: PlayerComp
       value: 
       objectReference: {fileID: 156468675}
+    - target: {fileID: 7106078409430596244, guid: 4a9a0c5575b96944eb512d58dee9e1de, type: 3}
+      propertyPath: joystickClickableArea
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630831314274108250, guid: 4a9a0c5575b96944eb512d58dee9e1de, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7630831314274108251, guid: 4a9a0c5575b96944eb512d58dee9e1de, type: 3}
       propertyPath: m_SizeDelta.x
       value: 200
@@ -14885,6 +14901,14 @@ PrefabInstance:
     - target: {fileID: -7338775594456738943, guid: d4db6929a43790f4e9b92ac4840da9a0, type: 3}
       propertyPath: RotateSpeed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: -7338775594456738943, guid: d4db6929a43790f4e9b92ac4840da9a0, type: 3}
+      propertyPath: RotateDamping
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -7338775594456738943, guid: d4db6929a43790f4e9b92ac4840da9a0, type: 3}
+      propertyPath: MovementDamping
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 6391180021679619632, guid: d4db6929a43790f4e9b92ac4840da9a0, type: 3}
       propertyPath: m_Name
@@ -29636,6 +29660,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1704155634}
     m_Modifications:
+    - target: {fileID: 5399432202717863607, guid: 4a9a0c5575b96944eb512d58dee9e1de, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 338e7a6bed0b54a49984ee0f7c8c857c, type: 3}
     - target: {fileID: 7106078409430596244, guid: 4a9a0c5575b96944eb512d58dee9e1de, type: 3}
       propertyPath: PlayerComp
       value: 
@@ -29726,7 +29754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7630831315433649949, guid: 4a9a0c5575b96944eb512d58dee9e1de, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -184
+      value: -117.1
       objectReference: {fileID: 0}
     - target: {fileID: 7630831315433649949, guid: 4a9a0c5575b96944eb512d58dee9e1de, type: 3}
       propertyPath: m_AnchoredPosition.y
