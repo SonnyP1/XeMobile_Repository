@@ -25,6 +25,11 @@ public class Player : Character
     Weapon CurrentWeapon;
     int currentWeaponIndex = 0;
     Vector2 moveInput;
+    private bool isPlayerInputEnabled = true;
+    public void SetPlayerInput(bool enabled)
+    {
+        isPlayerInputEnabled = enabled;
+    }
     private void Awake()
     {
         inputActions = new InputActions();
@@ -68,6 +73,7 @@ public class Player : Character
             {
                 inGameUI.SwichedWeaponTo(CurrentWeapon);
             }
+            animator.SetFloat("FiringSpeed",CurrentWeapon.GetShootingSpeed());
         }
     }
 
@@ -122,7 +128,10 @@ public class Player : Character
     }
     private void Fire()
     {
-        animator.SetLayerWeight(animator.GetLayerIndex("UpperBody"), 1);
+        if (isPlayerInputEnabled)
+        {
+            animator.SetLayerWeight(animator.GetLayerIndex("UpperBody"), 1);
+        }
     }
     private void StopFire()
     {
@@ -196,9 +205,12 @@ public class Player : Character
         base.Update();
         UpdateAnimation();
 
-        cameraManager.UpdateCamera(transform.position, moveInput, AimingJoyStick.GetJoyStickInput().magnitude > 0);
-        MoveInputUpdatedOnMobileInput();
-        UpdateAimingJoyStick();
+        if (isPlayerInputEnabled)
+        {
+            cameraManager.UpdateCamera(transform.position, moveInput, AimingJoyStick.GetJoyStickInput().magnitude > 0);
+            MoveInputUpdatedOnMobileInput();
+            UpdateAimingJoyStick();
+        }
     }
 
     private void UpdateAimingJoyStick()
@@ -219,6 +231,16 @@ public class Player : Character
         if(CurrentWeapon!=null)
         {
             CurrentWeapon.Fire();
+        }
+    }
+
+    public override void NoHealthLeft()
+    {
+        base.NoHealthLeft();
+        Player Player = GetComponent<Player>();
+        if (Player != null)
+        {
+            Player.SetPlayerInput(false);
         }
     }
 }

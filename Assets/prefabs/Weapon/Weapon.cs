@@ -8,6 +8,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] ParticleSystem BulletEmitter;
     [SerializeField] float DamagePerBullet = 1;
     [SerializeField] Sprite WeaponIcon;
+    [SerializeField] float ShootingSpeed = 1;
+    public float GetShootingSpeed()
+    {
+        return ShootingSpeed;
+    }
 
     public Sprite GetWeaponIcon() { return WeaponIcon; }
     public float GetDamagePerBullet() { return DamagePerBullet; }

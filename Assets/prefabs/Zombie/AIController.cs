@@ -12,7 +12,8 @@ public class AIController : MonoBehaviour
     [SerializeField] float hurtRememberingTime = 3;
     GameObject Target;
     Coroutine HurtForgettingCoroutine;
-    
+    private bool shouldRunAI= true;
+
     public BehaviorTree GetBehaviorTree()
     {
         return behaviorTree;
@@ -82,8 +83,19 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(behaviorTree != null && behaviorTree.Run() != EBTTaskResult.Running)
+        if (shouldRunAI)
+        {
+            if (behaviorTree != null && behaviorTree.Run() != EBTTaskResult.Running)
+            {
+                behaviorTree.Reset();
+            }
+        }
+    }
+
+    public void StopAIBehavior()
+    {
+        shouldRunAI = false;
+        if (behaviorTree != null)
         {
             behaviorTree.Reset();
         }
