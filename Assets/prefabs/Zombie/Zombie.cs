@@ -42,8 +42,12 @@ public class Zombie : Character
         base.Update();
         float MoveDelta = Vector3.Distance(transform.position, previousLocation);
         speed = MoveDelta / Time.deltaTime;
-        previousLocation = transform.position; 
-        animator.SetFloat("Speed", speed);
+        previousLocation = transform.position;
+        if (animator != null)
+        {
+            animator.SetFloat("Speed", speed);
+        }
+        else { Debug.Log("ANIMATOR DOES NOT EXIST"); }
     }
 
     public override void NoHealthLeft()
