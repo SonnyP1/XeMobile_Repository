@@ -9,6 +9,6 @@ public class RangedZombie : Zombie
     public override void AttackPoint()
     {
        GameObject newProjectile = Instantiate(Projectile,AttackSpawnPoint.position,Quaternion.identity);
-        newProjectile.GetComponent<ZombieLobProjectile>().SetOwner(gameObject);
+       newProjectile.GetComponent<ZombieLobProjectile>().SetOwner(gameObject);
     }
 }

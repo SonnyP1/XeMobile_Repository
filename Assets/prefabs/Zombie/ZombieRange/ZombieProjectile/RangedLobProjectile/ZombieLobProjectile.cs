@@ -7,7 +7,7 @@ using UnityEngine;
 public class ZombieLobProjectile : ZombieProjectile
 {
     [SerializeField] GameObject ExplosionEffect;
-    [SerializeField] SphereCollider ExplosionHitBox;
+    [SerializeField] GameObject ExplosionHitBox;
     [SerializeField] float HeightOfArcLaunch = 3f;
     [SerializeField] LayerMask LayerToIgnore;
     private float gravity = -9.8f;
@@ -30,7 +30,7 @@ public class ZombieLobProjectile : ZombieProjectile
         }
     }
 
-    public Vector3 ShootAtTarget()
+    private Vector3 ShootAtTarget()
     {
         if (GetTarget() == null)
         {
@@ -58,9 +58,13 @@ public class ZombieLobProjectile : ZombieProjectile
         }
         if (_effect == null)
         {
+            //Effect
             Quaternion rotToSpawn = Quaternion.FromToRotation(transform.up, other.contacts[0].normal);
             _effect = Instantiate(ExplosionEffect, gameObject.transform.position, rotToSpawn);
-            //Debug.Log(_effect.transform.rotation);
+
+            //HitBox
+            Instantiate(ExplosionHitBox, gameObject.transform.position, rotToSpawn);
+
             Destroy(gameObject);
         }
     }

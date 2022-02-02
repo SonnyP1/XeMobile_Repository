@@ -241,6 +241,7 @@ public class Player : Character
         if (Player != null)
         {
             Player.SetPlayerInput(false);
+            movementComp.SetMovementInput(Vector2.zero);
         }
     }
 }

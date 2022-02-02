@@ -13,6 +13,15 @@ public class HealthComponent : MonoBehaviour
     public OnHealthChanged onHealthChanged;
     public OnNoHealthLeft noHealthLeft;
 
+    public void HealHealth(int healingAmount,GameObject HealerCauser)
+    {
+        int oldValue = HitPoints;
+        HitPoints = Mathf.Clamp(HitPoints+healingAmount,HitPoints,MaxHitPoints);
+        if (onHealthChanged != null)
+        {
+            onHealthChanged.Invoke(HitPoints, oldValue, MaxHitPoints, HealerCauser);
+        }
+    }
     public void TakeDamage(int damage, GameObject DamageCauser)
     {
         int oldValue = HitPoints;

@@ -12,7 +12,7 @@ public class RangedBehaviorTree : BehaviorTree
         AddBlackBoardKey("CheckLocation");
         Selector RootSelector = new Selector(AIC);
         Sequence MoveToAndAttackTargetSeq = new Sequence(aiController);
-        BTTask_MoveTo MoveToPlayer = new BTTask_MoveTo(aiController, "Target", 6f);
+        BTTask_MoveTo MoveToPlayer = new BTTask_MoveTo(aiController, "Target", 12f);
         BlackboardDecorator MoveToPlayerDecortor = new BlackboardDecorator(aiController, MoveToPlayer, "Target", EKeyQuery.Set, EUpdateAbort.Both);
         MoveToAndAttackTargetSeq.AddChild(MoveToPlayerDecortor);
         BTTask_AttackTarget AttackPlayer = new BTTask_AttackTarget(aiController, "Target");

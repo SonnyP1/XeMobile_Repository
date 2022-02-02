@@ -92,9 +92,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 250
-  ExplosionEffect: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
-  ExplosionHitBox: {fileID: 0}
-  HeightOfArcLaunch: 0
+  ExplosionEffect: {fileID: 5343565520676071362, guid: f3e3834ef2520a245aa668409e0ccac1, type: 3}
+  ExplosionHitBox: {fileID: 8099632024521938456, guid: 08f3c3a6d49d12a4aa02507c25fbce1a, type: 3}
+  HeightOfArcLaunch: 2
   LayerToIgnore:
     serializedVersion: 2
     m_Bits: 128
