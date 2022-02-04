@@ -16,7 +16,7 @@ public class ExplosionHitBox : MonoBehaviour
             Player targetAsPlayer = target.GetComponent<Player>();
             if (targetAsPlayer)
             {
-                target.GetComponent<HealthComponent>().TakeDamage(CalculateDmgBasedOnDistance(targetAsPlayer.transform), gameObject);
+                target.GetComponent<HealthComponent>().ChangeHealth(CalculateDmgBasedOnDistance(targetAsPlayer.transform), gameObject);
             }
         }
         Destroy(gameObject);

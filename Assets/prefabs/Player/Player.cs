@@ -13,6 +13,7 @@ public class Player : Character
     Coroutine BackToIdleCoroutine;
     InGameUI inGameUI;
     CameraManager cameraManager;
+    AbilityComponent abilityComp;
 
     [Header("Joysticks")]
     [SerializeField] JoyStick MovementJoyStick;
@@ -33,6 +34,13 @@ public class Player : Character
     private void Awake()
     {
         inputActions = new InputActions();
+        abilityComp = GetComponent<AbilityComponent>();
+        abilityComp.onNewAbilityInitialized += AbilityInit;
+    }
+
+    private void AbilityInit(AbilityBase newAbility)
+    {
+        FindObjectOfType<AbilityWheel>().AddNewAbility(newAbility);
     }
 
     private void OnEnable()

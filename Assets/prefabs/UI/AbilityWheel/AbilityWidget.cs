@@ -1,60 +1,96 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class AbilityWidget : MonoBehaviour
 {
-    [Header("Ability")]
-    [SerializeField] Abilities WidgetAbility;
-    public Abilities GetAbility()
-    {
-        return WidgetAbility;
-    }
+    [SerializeField] RectTransform background;
+    [SerializeField] RectTransform icon;
 
-    [Header("UI")]
-    [SerializeField] RectTransform BackGroundTransform;
-    [SerializeField] Image IconImage;
+    [SerializeField] RectTransform CooldownTransform;
 
-    [Header("UI Expand Animation")]
     [SerializeField] float ExpandedScale = 2.0f;
-    [SerializeField] float HighLightedScale = 2.2f;
-    [SerializeField] float TimeToExpanded = 50.0f;
-    private Vector3 _desiredSize = new Vector3(1,1,1);
+    [SerializeField] float HighLighetedScale = 2.2f;
+    [SerializeField] float ScaleSpeed = 20f;
+
+    Vector3 GoalScale = new Vector3(1,1,1);
+
+    private OnCooldownUpdated cooldownUpdated;
+
+    AbilityBase ability;
+
+    Material _cooldownMaterial;
+    Image _cooldownImage;
+    // Start is called before the first frame update
     void Start()
     {
-        if(WidgetAbility.GetIcon() != null)
-        {
-            IconImage.sprite = WidgetAbility.GetIcon();
-        }
-        WidgetAbility = Instantiate(WidgetAbility);
+        _cooldownMaterial = Instantiate(CooldownTransform.GetComponent<Image>().material);
+        CooldownTransform.GetComponent<Image>().material = _cooldownMaterial;
     }
 
+    // Update is called once per frame
     void Update()
     {
-        BackGroundTransform.localScale = Vector3.Lerp(BackGroundTransform.localScale,_desiredSize, TimeToExpanded * Time.deltaTime);
+        background.localScale = Vector3.Lerp(background.localScale, GoalScale, ScaleSpeed * Time.deltaTime);
+
+        //Cooldown Stuff
+        if(ability != null && ability.IsOnCooldown)
+        {
+            Debug.Log(ability.GetCooldownPercentage());
+            SetCooldownProgress(ability.GetCooldownPercentage());
+        }
+        else
+        {
+            SetCooldownProgress(1);
+        }
+    }
+
+    void SetCooldownProgress(float progress)
+    {
+        _cooldownMaterial.SetFloat("_Progress", progress);
     }
 
     internal void SetExpand(bool isExpanded)
     {
-        if(isExpanded)
+
+        if (isExpanded)
         {
-            _desiredSize = new Vector3(1,1,1) * ExpandedScale;
+            GoalScale = new Vector3(1, 1, 1) * ExpandedScale;
         }
         else
         {
-            _desiredSize = new Vector3(1, 1, 1);
+            if (IsHighlighted())
+            {
+                if(ability != null)
+                { 
+                    ability.ActivateAbility();
+                }
+            }
+            GoalScale = new Vector3(1, 1, 1);
         }
     }
+
+    private bool IsHighlighted()
+    {
+        return GoalScale == new Vector3(1, 1, 1) * HighLighetedScale;
+    }
+
     internal void SetHighlighted(bool isHighLighted)
     {
-        if(isHighLighted)
+        if (isHighLighted)
         {
-            _desiredSize = new Vector3(1, 1, 1) * HighLightedScale;
+            GoalScale = new Vector3(1, 1, 1) * HighLighetedScale;
         }
         else
         {
-            _desiredSize = new Vector3(1, 1, 1) * ExpandedScale;
+            GoalScale = new Vector3(1, 1, 1) * ExpandedScale;
         }
+    }
+
+    internal void AssignAbility(AbilityBase newAbility)
+    {
+        ability = newAbility;
+        icon.GetComponent<Image>().sprite = ability.GetIcon();
     }
 }

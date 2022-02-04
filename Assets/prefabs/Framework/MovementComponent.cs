@@ -6,10 +6,14 @@ public class MovementComponent : MonoBehaviour
 {
     [Header("Walking")]
     [SerializeField] float WalkingSpeed = 5f;
+    private float _modifiedWalkingSpeed = 1f;
     [SerializeField] float rotationSpeed = 5f;
     [SerializeField] float EdgeCheckTracingDistance = 0.8f;
     [SerializeField] float EdgeCheckTracingDepth = 1f;
-
+    public void SetModifiedWalkingSpeed(float newSpeed)
+    {
+        _modifiedWalkingSpeed = newSpeed;
+    }
     [Header("Ground Check")]
     [SerializeField] Transform GroundCheck;
     [SerializeField] float GroundCheckRadius = 0.1f;
@@ -99,7 +103,7 @@ public class MovementComponent : MonoBehaviour
             Velocity.y = -0.2f;
         }
 
-        Velocity = GetPlayerDesiredMoveDir() * (WalkingSpeed *  SpeedMultiplier);
+        Velocity = GetPlayerDesiredMoveDir() * ((WalkingSpeed* _modifiedWalkingSpeed) *  SpeedMultiplier);
         Velocity.y += Gravity * Time.deltaTime;
 
 
