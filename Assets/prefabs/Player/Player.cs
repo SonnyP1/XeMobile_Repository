@@ -14,6 +14,7 @@ public class Player : Character
     InGameUI inGameUI;
     CameraManager cameraManager;
     AbilityComponent abilityComp;
+    AbilityWheel abilityWheel;
 
     [Header("Joysticks")]
     [SerializeField] JoyStick MovementJoyStick;
@@ -27,6 +28,7 @@ public class Player : Character
     int currentWeaponIndex = 0;
     Vector2 moveInput;
     private bool isPlayerInputEnabled = true;
+
     public void SetPlayerInput(bool enabled)
     {
         isPlayerInputEnabled = enabled;
@@ -35,7 +37,16 @@ public class Player : Character
     {
         inputActions = new InputActions();
         abilityComp = GetComponent<AbilityComponent>();
-        abilityComp.onNewAbilityInitialized += AbilityInit;
+        abilityWheel = FindObjectOfType<AbilityWheel>();
+        if(abilityComp != null)
+        {
+            abilityComp.onStaminaUpdated += StaminaUpdated;
+            abilityComp.onNewAbilityInitialized += AbilityInit;
+        }
+    }
+    private void StaminaUpdated(float newValue)
+    {
+        abilityWheel.UpdateStamina(newValue);
     }
 
     private void AbilityInit(AbilityBase newAbility)
@@ -102,6 +113,8 @@ public class Player : Character
         animator.SetTrigger("BackToIdle");
         InitializeWeapons();
         cameraManager = FindObjectOfType<CameraManager>();
+
+        abilityWheel.UpdateStamina(abilityComp.GetStaminaLevel());
 
     }
 
@@ -242,7 +255,7 @@ public class Player : Character
         }
     }
 
-    public override void NoHealthLeft()
+    public override void NoHealthLeft(GameObject killer = null)
     {
         base.NoHealthLeft();
         Player Player = GetComponent<Player>();

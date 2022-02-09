@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,17 +17,19 @@ public class AbilityWidget : MonoBehaviour
 
     Vector3 GoalScale = new Vector3(1,1,1);
 
-    private OnCooldownUpdated cooldownUpdated;
-
     AbilityBase ability;
 
     Material _cooldownMaterial;
+    Material _staminaMaterial;
     Image _cooldownImage;
     // Start is called before the first frame update
     void Start()
     {
         _cooldownMaterial = Instantiate(CooldownTransform.GetComponent<Image>().material);
         CooldownTransform.GetComponent<Image>().material = _cooldownMaterial;
+
+        _staminaMaterial = Instantiate(background.GetComponent<Image>().material);
+        background.GetComponent<Image>().material = _staminaMaterial;
     }
 
     // Update is called once per frame
@@ -37,7 +40,6 @@ public class AbilityWidget : MonoBehaviour
         //Cooldown Stuff
         if(ability != null && ability.IsOnCooldown)
         {
-            Debug.Log(ability.GetCooldownPercentage());
             SetCooldownProgress(ability.GetCooldownPercentage());
         }
         else
@@ -49,6 +51,11 @@ public class AbilityWidget : MonoBehaviour
     void SetCooldownProgress(float progress)
     {
         _cooldownMaterial.SetFloat("_Progress", progress);
+    }
+
+    internal void SetStaminaProgress(float progress)
+    {
+        _staminaMaterial.SetFloat("_Progress", progress);
     }
 
     internal void SetExpand(bool isExpanded)

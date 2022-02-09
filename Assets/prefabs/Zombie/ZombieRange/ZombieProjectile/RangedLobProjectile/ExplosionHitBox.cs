@@ -16,6 +16,7 @@ public class ExplosionHitBox : MonoBehaviour
             Player targetAsPlayer = target.GetComponent<Player>();
             if (targetAsPlayer)
             {
+                Debug.Log("DO DMG");
                 target.GetComponent<HealthComponent>().ChangeHealth(CalculateDmgBasedOnDistance(targetAsPlayer.transform), gameObject);
             }
         }

@@ -15,7 +15,7 @@ public class Character : MonoBehaviour
         healthComp.noHealthLeft += NoHealthLeft;
     }
 
-    public virtual void NoHealthLeft()
+    public virtual void NoHealthLeft(GameObject killer = null)
     {
         GetComponent<Animator>().SetLayerWeight(2,1);
         int DeathStateNameHash = Animator.StringToHash("DeathState");

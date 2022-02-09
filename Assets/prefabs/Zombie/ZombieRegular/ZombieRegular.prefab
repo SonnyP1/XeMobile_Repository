@@ -296,4 +296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bb86e0fb314fd4593dbc921d906d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CreditReward: 10
+  StaminaReward: 0.5
   AttackRange: {fileID: 7372349810515782436}

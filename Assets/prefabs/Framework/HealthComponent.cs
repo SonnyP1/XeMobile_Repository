@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void OnHealthChanged(float newValue, float oldValue, float maxValue, GameObject Causer);
-public delegate void OnNoHealthLeft();
+public delegate void OnNoHealthLeft(GameObject killer = null);
 
 public class HealthComponent : MonoBehaviour
 {
@@ -21,7 +21,7 @@ public class HealthComponent : MonoBehaviour
         {
             if(noHealthLeft!=null)
             {
-                noHealthLeft.Invoke();
+                noHealthLeft.Invoke(Causer);
             }
         }
         if (onHealthChanged != null)

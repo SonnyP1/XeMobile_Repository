@@ -280,6 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3673340e01aed4396518c4cde649b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CreditReward: 10
+  StaminaReward: 0.2
   AttackSpawnPoint: {fileID: 5210553791455116263}
   Projectile: {fileID: 7094984700021252715, guid: b8648de0315b3d049a63bd02b8fa8c26, type: 3}
 --- !u!114 &7988495522465893889

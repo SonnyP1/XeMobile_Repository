@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Zombie : Character
 {
+    [SerializeField] float CreditReward;
+    [SerializeField] float StaminaReward;
     NavMeshAgent navAgent;
     Animator animator;
     Rigidbody ZombieRigidbody;
@@ -50,13 +52,24 @@ public class Zombie : Character
         else { Debug.Log("ANIMATOR DOES NOT EXIST"); }
     }
 
-    public override void NoHealthLeft()
+    public override void NoHealthLeft(GameObject killer = null)
     {
-        base.NoHealthLeft();
+        GetComponent<CapsuleCollider>().enabled = false;
+        if(killer != null)
+        {
+            Player killerAsPlayer = killer.GetComponent<Player>();
+            if(killerAsPlayer != null)
+            {
+                killerAsPlayer.GetComponent<CreditComponent>().ChangedCredits(CreditReward);
+                killerAsPlayer.GetComponent<AbilityComponent>().ChangeStamina(StaminaReward);
+            }
+        }
+
         AIController AIC = GetComponent<AIController>();
         if (AIC != null)
         {
             AIC.StopAIBehavior();
         }
+        base.NoHealthLeft();
     }
 }
