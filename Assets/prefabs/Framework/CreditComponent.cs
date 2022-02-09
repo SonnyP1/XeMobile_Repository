@@ -9,7 +9,10 @@ public class CreditComponent : MonoBehaviour
     [SerializeField] float Credits = 0f;
     [SerializeField] float MaxCredit = 2000.0f;
     private CreditUI _creditUI;
-
+    public float GetCurrentCredits()
+    {
+        return Credits;
+    }
     public event OnCreditUpdated onCreditUpdated;
 
     private void Start()
@@ -23,7 +26,6 @@ public class CreditComponent : MonoBehaviour
     }
     public void ChangedCredits(float changeAmount)
     {
-
         Credits = Mathf.Clamp(Credits + changeAmount, 0, MaxCredit);
         _creditUI.UpdateCreditAmount(Credits);
         if(onCreditUpdated != null)

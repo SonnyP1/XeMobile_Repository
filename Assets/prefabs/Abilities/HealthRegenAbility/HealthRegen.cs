@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu]
+[CreateAssetMenu (menuName = "Abilities/HealthRegen")]
 public class HealthRegen : AbilityBase
 {
     [SerializeField] float RegenAmount = 2.5f;

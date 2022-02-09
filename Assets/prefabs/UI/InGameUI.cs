@@ -10,6 +10,7 @@ public class InGameUI : MonoBehaviour
     [SerializeField] GameObject PauseMenu;
     [SerializeField] Image WeaponIcon;
     [SerializeField] Image ProgressBar;
+    [SerializeField] Canvas ShopMenuUI;
     public void SetPlayerHealth(float percent)
     {
         ProgressBar.material.SetFloat("_Progress", percent);
@@ -25,6 +26,18 @@ public class InGameUI : MonoBehaviour
         PauseMenu.SetActive(true);
         InGameMenu.SetActive(false);
        
+    }
+
+    public void ToggleShopMenu()
+    {
+        if(ShopMenuUI.enabled == true)
+        {
+            ShopMenuUI.enabled = false;
+        }
+        else
+        {
+            ShopMenuUI.enabled = true;
+        }
     }
 
     private void Start()
@@ -48,5 +61,13 @@ public class InGameUI : MonoBehaviour
     public void SwichedWeaponTo(Weapon EquipedWeapon)
     {
         WeaponIcon.sprite = EquipedWeapon.GetWeaponIcon();
+    }
+    IEnumerator LerpToTransform()
+    {
+        while(true)
+        {
+            //move thing to thing
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
