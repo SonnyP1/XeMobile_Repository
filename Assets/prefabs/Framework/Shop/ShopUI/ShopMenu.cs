@@ -8,9 +8,16 @@ public class ShopMenu : MonoBehaviour
     [SerializeField] ShopItem shopItemPrefab;
     [SerializeField] GameObject shopPanelObject;
     [SerializeField] ShopSystem shopSystem;
+    private List<ShopItem> _shopItems = new List<ShopItem>();
+
+    public ShopItem[] GetShopItem()
+    {
+        return _shopItems.ToArray();
+    }
     void Start()
     {
         PopulateItems(shopSystem.GetWeaaponsOnSale());
+        shopSystem.InitializeShopSystem();
     }
 
     // Update is called once per frame
@@ -25,6 +32,7 @@ public class ShopMenu : MonoBehaviour
         {
             ShopItem newItem = Instantiate(shopItemPrefab, shopPanelObject.transform);
             newItem.Init(weapon.GetWeaponInfo(), shopSystem);
+            _shopItems.Add(newItem);
         }
     }
 }

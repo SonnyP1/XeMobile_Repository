@@ -8,6 +8,11 @@ public class ShopItem : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI Text;
     [SerializeField] Image Icon;
+    private Button _button;
+    public Button GetItemButton()
+    {
+        return _button;
+    }
 
     ShopSystem _shopSystem;
     public WeaponInfo weaponInfo
@@ -18,6 +23,7 @@ public class ShopItem : MonoBehaviour
 
     internal void Init(WeaponInfo weaponInfo, ShopSystem shopSystem)
     {
+        _button = GetComponent<Button>();
         _shopSystem = shopSystem;
         this.weaponInfo = weaponInfo;
         Icon.sprite = weaponInfo.Icon;

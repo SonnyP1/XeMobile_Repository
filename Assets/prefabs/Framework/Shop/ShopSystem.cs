@@ -7,9 +7,66 @@ public class ShopSystem : ScriptableObject
 {
     [SerializeField] Weapon[] weaponOnSale;
     private CreditComponent _playerCreditComponent;
+    private ShopMenu _shopMenu;
+    private Player _playerComponent;
     void Start()
     {
+
+    }
+
+    public void InitializeShopSystem()
+    {
         _playerCreditComponent = FindObjectOfType<CreditComponent>();
+        _shopMenu = FindObjectOfType<ShopMenu>();
+        _playerComponent = _playerCreditComponent.GetComponent<Player>();
+        _playerCreditComponent.onCreditUpdated += CheckIfItemIsBuyable;
+        CheckIfItemIsBuyable(_playerCreditComponent.GetCurrentCredits());
+    }
+
+    private void CheckIfItemIsBuyable(float newValue)
+    {
+        if (_shopMenu != null)
+        {
+            foreach (ShopItem item in _shopMenu.GetShopItem())
+            {
+                if (!CanPurchase(item.weaponInfo.WeaponCost))
+                {
+                    item.GetItemButton().interactable = false;
+                    item.GetItemButton().colors.normalColor.Equals(Color.red);
+                }
+                else
+                {
+                    item.GetItemButton().interactable = true;
+                    item.GetItemButton().colors.normalColor.Equals(Color.white);
+                }
+
+                if(DoesPlayerHaveItem(item))
+                {
+                    item.GetItemButton().interactable = false;
+                    item.GetItemButton().colors.normalColor.Equals(Color.red);
+                }
+            }
+        }
+    }
+
+    private bool DoesPlayerHaveItem(ShopItem item)
+    {
+        if(_playerComponent != null && _playerComponent.GetWeaponList() != null)
+        {
+            foreach(Weapon playerWeapons in _playerComponent.GetWeaponList())
+            {
+                if(item.weaponInfo.name == playerWeapons.GetWeaponInfo().name)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        Debug.Log("Player Item Check Fail");
+        return false;
     }
 
     internal Weapon[] GetWeaaponsOnSale()
@@ -28,7 +85,6 @@ public class ShopSystem : ScriptableObject
         {
             return;
         }
-
 
         foreach (Weapon weapon in weaponOnSale)
         {

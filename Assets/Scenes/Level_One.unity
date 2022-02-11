@@ -31329,6 +31329,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7699770079167670525, guid: 6e76b1de55c00f0419f1af4472d5f874, type: 3}
+      propertyPath: CreditReward
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 7728479437202002590, guid: 6e76b1de55c00f0419f1af4472d5f874, type: 3}
       propertyPath: m_Name
       value: ZombieRegular
@@ -64089,7 +64093,7 @@ PrefabInstance:
       objectReference: {fileID: 617548017}
     - target: {fileID: 3184174310673622584, guid: d5ca11dc202a4e64d901a788be3e249d, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3489882048913371550, guid: d5ca11dc202a4e64d901a788be3e249d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -65450,6 +65454,14 @@ PrefabInstance:
     - target: {fileID: 1108311796, guid: 3e17ae981e6182c4e929f0312f817819, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1108311797, guid: 3e17ae981e6182c4e929f0312f817819, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c53b06fa56cc1ac48b0eff87d5566a36, type: 3}
+    - target: {fileID: 1108311797, guid: 3e17ae981e6182c4e929f0312f817819, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2012943017277065633, guid: 3e17ae981e6182c4e929f0312f817819, type: 3}
       propertyPath: m_Pivot.x

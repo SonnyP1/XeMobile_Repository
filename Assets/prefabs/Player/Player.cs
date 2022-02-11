@@ -29,6 +29,10 @@ public class Player : Character
     Vector2 moveInput;
     private bool isPlayerInputEnabled = true;
 
+    public Weapon[] GetWeaponList()
+    {
+        return Weapons.ToArray();
+    }
     internal void AquireNewWeapon(Weapon weapon,bool Equip = false)
     {
         Weapon newWeapon = Instantiate(weapon, GunSocket);
