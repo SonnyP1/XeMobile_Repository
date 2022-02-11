@@ -35,7 +35,7 @@ public class HealthComponent : MonoBehaviour
         Weapon attackingWeapon = other.GetComponentInParent<Weapon>();
         if(attackingWeapon!=null)
         {
-            ChangeHealth(-(int)(attackingWeapon.GetDamagePerBullet()), attackingWeapon.Owner);
+            ChangeHealth(-(attackingWeapon.GetDamagePerBullet()), attackingWeapon.Owner);
         }
     }
 

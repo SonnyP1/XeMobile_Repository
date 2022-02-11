@@ -15,3 +15,4 @@ MonoBehaviour:
   weaponOnSale:
   - {fileID: 6905884342622866290, guid: 024720a431b969d468205cba054f682f, type: 3}
   - {fileID: 4860334789521475974, guid: 2d4a6e02224cb2740a976e743d193af2, type: 3}
+  - {fileID: 141546481721477167, guid: 5a9edf753d320ec4c8540f94624b8f17, type: 3}

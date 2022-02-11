@@ -55,7 +55,10 @@ public class AbilityWidget : MonoBehaviour
 
     internal void SetStaminaProgress(float progress)
     {
-        _staminaMaterial.SetFloat("_Progress", progress);
+        if (_staminaMaterial != null)
+        {
+            _staminaMaterial.SetFloat("_Progress", progress);
+        }
     }
 
     internal void SetExpand(bool isExpanded)
