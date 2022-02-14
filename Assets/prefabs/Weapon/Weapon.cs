@@ -39,6 +39,7 @@ public class Weapon : MonoBehaviour
     public Sprite GetWeaponIcon() { return WeaponIcon; }
     public float GetDamagePerBullet() { return DamagePerBullet; }
     public GameObject Owner { set; get; }
+    public Weapon OrigPrefab { get; internal set; }
 
     // Start is called before the first frame update
     void Start()

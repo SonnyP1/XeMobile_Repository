@@ -12,7 +12,10 @@ public class HealthComponent : MonoBehaviour
 
     public OnHealthChanged onHealthChanged;
     public OnNoHealthLeft noHealthLeft;
-
+    public float GetHitPoints()
+    {
+        return HitPoints;
+    }
     public void ChangeHealth(float changeAmount, GameObject Causer = null)
     {
         float oldValue = HitPoints;

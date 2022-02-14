@@ -85,4 +85,9 @@ public abstract class AbilityBase : ScriptableObject
     {
         return AbilityLevel;
     }
+
+    public void StopAllCoroutine()
+    {
+        ownerComp.StopAllCoroutines();
+    }
 }

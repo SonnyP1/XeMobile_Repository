@@ -8,7 +8,7 @@ public class CreditComponent : MonoBehaviour
 {
     [SerializeField] float Credits = 0f;
     [SerializeField] float MaxCredit = 2000.0f;
-    private CreditUI _creditUI;
+    [SerializeField] CreditUI _creditUI;
     public float GetCurrentCredits()
     {
         return Credits;
@@ -17,7 +17,6 @@ public class CreditComponent : MonoBehaviour
 
     private void Start()
     {
-        _creditUI = FindObjectOfType<CreditUI>();
         _creditUI.UpdateCreditAmount(Credits);
         if(_creditUI == null)
         {

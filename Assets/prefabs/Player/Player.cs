@@ -277,4 +277,90 @@ public class Player : Character
             movementComp.SetMovementInput(Vector2.zero);
         }
     }
+    public PlayerSavedData GenerateSaveData()
+    {
+        List<string> weaponList = new List<string>();
+        foreach(Weapon weapon in Weapons)
+        {
+            weaponList.Add(weapon.GetWeaponInfo().name);
+        }
+
+        return new PlayerSavedData(transform.position,
+            GetComponent<CreditComponent>().GetCurrentCredits(),
+            GetComponent<HealthComponent>().GetHitPoints(),
+            GetComponent<AbilityComponent>().GetStaminaLevel(),
+            weaponList.ToArray()
+            );
+    }
+
+    public void UpdateFromSavedData(PlayerSavedData data)
+    {
+        CharacterController characterController = GetComponent<CharacterController>();
+        characterController.enabled = false;
+        transform.position = data.Pos;
+        //Apply Health
+        HealthComponent healthComp = GetComponent<HealthComponent>();
+        float playerCurrentHealth = healthComp.GetHitPoints();
+        float healthDelta = data.Health - playerCurrentHealth;
+        healthComp.ChangeHealth(healthDelta);
+
+        //Apply Stamina
+        float playerCurrentStamina = abilityComp.GetStaminaLevel();
+        float staminaDelta = data.Stamina - playerCurrentStamina;
+        abilityComp.ChangeStamina(staminaDelta);
+
+        //apply credits
+        CreditComponent creditComp = GetComponent<CreditComponent>();
+        float playerCurrentCredits = creditComp.GetCurrentCredits();
+        creditComp.ChangedCredits(data.Credits - playerCurrentCredits);
+
+        //apply weapons
+        var shops = Resources.FindObjectsOfTypeAll<ShopSystem>();
+        if(shops.Length > 0)
+        {
+            ShopSystem shop = shops[0];
+            Weapon[] allWeapons = shop.GetWeaaponsOnSale();
+            List<String> weaponInData = new List<string>(data.Weapons);
+            foreach(Weapon weapon in allWeapons)
+            {
+                bool HadWeapon = weaponInData.Contains(weapon.GetWeaponInfo().name);
+                bool AlreadyHave = false;
+                foreach(Weapon weaponAlreadyHave in StartWeaponPrefabs)
+                {
+                    if(weaponAlreadyHave.GetWeaponInfo().name == weapon.GetWeaponInfo().name)
+                    {
+                        AlreadyHave = true;
+                    }
+                }
+
+                if (HadWeapon && !AlreadyHave)
+                {
+                    AquireNewWeapon(weapon);
+                }
+            }
+        }
+        
+        characterController.enabled = true;
+    }
+}
+
+
+
+[Serializable]
+public struct PlayerSavedData
+{
+    public PlayerSavedData(Vector3 savedPlayerPos, float savedPlayerCredits, float savedPlayerHealth, float savedPlayerStamina,string[] currentWeapons)
+    {
+        Pos = savedPlayerPos;
+        Credits = savedPlayerCredits;
+        Health = savedPlayerHealth;
+        Stamina = savedPlayerStamina;
+        Weapons = currentWeapons;
+    }
+
+    public Vector3 Pos;
+    public float Credits;
+    public float Health;
+    public float Stamina;
+    public string[] Weapons;
 }
