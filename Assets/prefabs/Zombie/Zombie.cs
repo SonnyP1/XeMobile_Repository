@@ -7,6 +7,7 @@ public class Zombie : Character
 {
     [SerializeField] float CreditReward;
     [SerializeField] float StaminaReward;
+    private int _assignZombie;
     NavMeshAgent navAgent;
     Animator animator;
     Rigidbody ZombieRigidbody;
@@ -22,6 +23,7 @@ public class Zombie : Character
         animator = GetComponent<Animator>();
         ZombieRigidbody = GetComponent<Rigidbody>();
         previousLocation = transform.position;
+        _assignZombie = GetHashCode();
     }
 
     internal void Attack()
@@ -72,4 +74,42 @@ public class Zombie : Character
         }
         base.NoHealthLeft();
     }
+
+    internal void UpdateFromSavedData(ZombieSavedData data)
+    {
+        //Update Pos
+        Debug.Log(data.Pos);
+        transform.position = data.Pos;
+
+        //Apply Health
+        HealthComponent healthComp = GetComponent<HealthComponent>();
+        float zombieCurrentHealth = healthComp.GetHitPoints();
+        float healthDelta = data.Health - zombieCurrentHealth;
+        healthComp.ChangeHealth(healthDelta);
+
+    }
+
+    public ZombieSavedData GeneratorSaveData()
+    {
+        return new ZombieSavedData(transform.position,
+            GetComponent<HealthComponent>().GetHitPoints(),
+            gameObject.name
+            );
+    }
 }
+
+[Serializable]
+public struct ZombieSavedData
+{
+    public ZombieSavedData(Vector3 savedZombiePos, float savedZombieHealth,string uniqueName)
+    {
+        UniqueID = uniqueName;
+        Pos = savedZombiePos;
+        Health = savedZombieHealth;
+    }
+
+    public Vector3 Pos;
+    public float Health;
+    public string UniqueID;
+}
+
