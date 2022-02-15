@@ -78,7 +78,6 @@ public class Zombie : Character
     internal void UpdateFromSavedData(ZombieSavedData data)
     {
         //Update Pos
-        Debug.Log(data.Pos);
         transform.position = data.Pos;
 
         //Apply Health

@@ -2157,7 +2157,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1065935928579278610, guid: 1b2861de6cf6b9f4a8c833f0fbdd505d, type: 3}
       propertyPath: Credits
-      value: 200
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1065935928579278610, guid: 1b2861de6cf6b9f4a8c833f0fbdd505d, type: 3}
+      propertyPath: MaxCredit
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 1065935928579278610, guid: 1b2861de6cf6b9f4a8c833f0fbdd505d, type: 3}
       propertyPath: _creditUI
@@ -66049,6 +66053,10 @@ PrefabInstance:
     - target: {fileID: 2539181260211472115, guid: 3b923faaf3facd34d937b65ad0497a05, type: 3}
       propertyPath: m_margin.w
       value: -41.919273
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539181260211472115, guid: 3b923faaf3facd34d937b65ad0497a05, type: 3}
+      propertyPath: m_margin.z
+      value: -107.436264
       objectReference: {fileID: 0}
     - target: {fileID: 2539181260211472115, guid: 3b923faaf3facd34d937b65ad0497a05, type: 3}
       propertyPath: m_fontSizeBase

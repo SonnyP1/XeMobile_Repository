@@ -65,7 +65,7 @@ public class ShopSystem : ScriptableObject
                 }
             }
         }
-        Debug.Log("Player Item Check Fail");
+        //Debug.Log("Player Item Check Fail");
         return false;
     }
 

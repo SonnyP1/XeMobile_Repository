@@ -57,12 +57,12 @@ public static class SaveGameManager
         //do enemy stuff
         List<Zombie> zombieList = new List<Zombie>();
         Zombie[] zombiesOnLoad = GameObject.FindObjectsOfType<Zombie>();
-        for (int i = 0; i> zombiesOnLoad.Length;i++)
+        for (int i = 0; i < zombiesOnLoad.Length;i++)
         {
             zombieList.Add(zombiesOnLoad[i]);
         }
 
-        foreach(Zombie zombie in zombieList)
+        foreach(Zombie zombie in zombiesOnLoad)
         {
             foreach(ZombieSavedData zombieData in currentLoadedData.ZombiesDatas)
             {                
@@ -72,6 +72,11 @@ public static class SaveGameManager
                     zombieList.Remove(zombie);
                 }
             }
+        }
+
+        foreach(Zombie zombie in zombieList)
+        {
+            GameObject.Destroy(zombie.gameObject);
         }
 
 
