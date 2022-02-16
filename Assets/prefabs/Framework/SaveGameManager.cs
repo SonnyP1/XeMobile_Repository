@@ -38,6 +38,10 @@ public static class SaveGameManager
 
     static public void LoadGame()
     {
+        if(!File.Exists(SaveDir))
+        {
+            return;
+        }
         string savedDataString = File.ReadAllText(SaveDir);
 
         currentLoadedData = JsonUtility.FromJson<SaveGameData>(savedDataString);

@@ -55,7 +55,6 @@ public class AbilityWheel : MonoBehaviour,IDragHandler,IPointerDownHandler,IPoin
 
                 abilityWidgets[i].SetStaminaProgress(newValue);
                 newValue = 0;
-                break;
             }
             else
             {

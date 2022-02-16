@@ -37,14 +37,14 @@ public class ZombieLobProjectile : ZombieProjectile
             return Vector3.zero;
         }
         //Variable gravity doesnt work??? it zero for some reason
-
         Vector3 TargetPos = GetTarget().transform.position;
         Vector3 PLPos = transform.position;
         float displacementY = TargetPos.y - PLPos.y;
         Vector3 displacementXZ = new Vector3(TargetPos.x - PLPos.x, 0, TargetPos.z - PLPos.z);
 
         Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * -9.81f * HeightOfArcLaunch);
-        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * HeightOfArcLaunch / -9.8f) + Mathf.Sqrt(2 * (displacementY - HeightOfArcLaunch) / -9.8f));
+        gravity = -9.8f;
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * HeightOfArcLaunch / gravity) + Mathf.Sqrt(2 * (displacementY - HeightOfArcLaunch) / gravity));
 
         return velocityXZ + velocityY;
     }
