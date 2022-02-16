@@ -924,7 +924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5263837995783826212, guid: 341cd021fcea9684d9fbff709ab26a62, type: 3}
       propertyPath: m_Text
-      value: 'LoadGame
+      value: 'Load Game
 
 '
       objectReference: {fileID: 0}

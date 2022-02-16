@@ -15,16 +15,30 @@ public class InGameUI : MonoBehaviour
     {
         ProgressBar.material.SetFloat("_Progress", percent);
     }
+
+    public void PauseGame()
+    {
+        if(Time.timeScale == 0)
+        {
+            SwichToInGameMenu();
+        }
+        else
+        {
+            SwitchToPauseMenu();
+        }
+    }
     public void SwichToInGameMenu()
     {
         InGameMenu.SetActive(true);
         PauseMenu.SetActive(false);
+        GameplayStatics.UnPauseGame();
     }
 
-    public void SWitchToPauseMenu()
+    public void SwitchToPauseMenu()
     {
         PauseMenu.SetActive(true);
         InGameMenu.SetActive(false);
+        GameplayStatics.PauseGame();
        
     }
 

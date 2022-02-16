@@ -32,18 +32,16 @@ public class ShopSystem : ScriptableObject
                 if (!CanPurchase(item.weaponInfo.WeaponCost))
                 {
                     item.GetItemButton().interactable = false;
-                    item.GetItemButton().colors.normalColor.Equals(Color.red);
                 }
                 else
                 {
                     item.GetItemButton().interactable = true;
-                    item.GetItemButton().colors.normalColor.Equals(Color.white);
                 }
+
 
                 if(DoesPlayerHaveItem(item))
                 {
                     item.GetItemButton().interactable = false;
-                    item.GetItemButton().colors.normalColor.Equals(Color.red);
                 }
             }
         }
@@ -59,13 +57,8 @@ public class ShopSystem : ScriptableObject
                 {
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
             }
         }
-        //Debug.Log("Player Item Check Fail");
         return false;
     }
 
