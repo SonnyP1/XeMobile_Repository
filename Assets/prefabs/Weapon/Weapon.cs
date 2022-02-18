@@ -20,6 +20,7 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] string WeaponName;
     [SerializeField] float Cost;
+    [SerializeField] float AudioDelayed= 0f;
 
     public WeaponInfo GetWeaponInfo()
     {
@@ -68,6 +69,7 @@ public class Weapon : MonoBehaviour
         if(BulletEmitter)
         {
             BulletEmitter.Emit(BulletEmitter.emission.GetBurst(0).maxCount);
+            GetComponent<AudioSource>().PlayDelayed(AudioDelayed);
         }
     }
 }

@@ -103,8 +103,12 @@ PrefabInstance:
       value: MiniGun
       objectReference: {fileID: 0}
     - target: {fileID: -4503590311711321987, guid: cdb2fbd235f8fa74fb6df3ca4afaaea2, type: 3}
+      propertyPath: AudioDelayed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4503590311711321987, guid: cdb2fbd235f8fa74fb6df3ca4afaaea2, type: 3}
       propertyPath: ShootingSpeed
-      value: 75
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: -4503590311711321987, guid: cdb2fbd235f8fa74fb6df3ca4afaaea2, type: 3}
       propertyPath: DamagePerBullet
@@ -122,6 +126,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.557
       objectReference: {fileID: 0}
+    - target: {fileID: 3009718263088233181, guid: cdb2fbd235f8fa74fb6df3ca4afaaea2, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009718263088233181, guid: cdb2fbd235f8fa74fb6df3ca4afaaea2, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b39b700f90db9194984fdec7323546d6, type: 3}
     - target: {fileID: 3659595705077474784, guid: cdb2fbd235f8fa74fb6df3ca4afaaea2, type: 3}
       propertyPath: m_RootOrder
       value: 0

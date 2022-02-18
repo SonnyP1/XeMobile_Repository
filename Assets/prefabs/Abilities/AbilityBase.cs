@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public delegate void OnCooldownUpdated(float cooldownPercentage);
+public delegate void OnCooldownEnded();
 
 public abstract class AbilityBase : ScriptableObject
 {
