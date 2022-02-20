@@ -12,6 +12,7 @@ public class InGameUI : MonoBehaviour
     [SerializeField] Image WeaponIcon;
     [SerializeField] Image ProgressBar;
     [SerializeField] Canvas ShopMenuUI;
+    [SerializeField] Canvas WinMenu;
     [SerializeField] TextMeshProUGUI InfectedAreaLeft;
     public void SetPlayerHealth(float percent)
     {
@@ -60,8 +61,15 @@ public class InGameUI : MonoBehaviour
         }
     }
 
+    public void ToggleWinScreen()
+    {
+        WinMenu.enabled = true;
+    }
+
     private void Start()
     {
+        WinMenu.enabled = false;
+        StartCoroutine(WaitToUpdateCounterUI());
         SwichToInGameMenu();
         HealthComponent PlayerHealthComp = FindObjectOfType<Player>().GetComponent<HealthComponent>();
         SetInfectedAreaLeftText(FindObjectsOfType<ZombieBeacon>().Length);
@@ -83,12 +91,10 @@ public class InGameUI : MonoBehaviour
     {
         WeaponIcon.sprite = EquipedWeapon.GetWeaponIcon();
     }
-    IEnumerator LerpToTransform()
+
+    IEnumerator WaitToUpdateCounterUI()
     {
-        while(true)
-        {
-            //move thing to thing
-            yield return new WaitForEndOfFrame();
-        }
+        yield return new WaitForSeconds(0.1f);
+        SetInfectedAreaLeftText(FindObjectsOfType<ZombieBeacon>().Length);
     }
 }
