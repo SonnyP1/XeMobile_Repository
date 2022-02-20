@@ -301,6 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Credits: 0
   MaxCredit: 2000
+  _creditUI: {fileID: 0}
 --- !u!1 &6277906977831337186
 GameObject:
   m_ObjectHideFlags: 0

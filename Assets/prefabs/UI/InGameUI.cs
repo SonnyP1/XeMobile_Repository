@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,11 +12,16 @@ public class InGameUI : MonoBehaviour
     [SerializeField] Image WeaponIcon;
     [SerializeField] Image ProgressBar;
     [SerializeField] Canvas ShopMenuUI;
+    [SerializeField] TextMeshProUGUI InfectedAreaLeft;
     public void SetPlayerHealth(float percent)
     {
         ProgressBar.material.SetFloat("_Progress", percent);
     }
 
+    public void SetInfectedAreaLeftText(int amountLeft)
+    {
+        InfectedAreaLeft.text = amountLeft.ToString();
+    }
     public void PauseGame()
     {
         if(Time.timeScale == 0)
@@ -58,6 +64,7 @@ public class InGameUI : MonoBehaviour
     {
         SwichToInGameMenu();
         HealthComponent PlayerHealthComp = FindObjectOfType<Player>().GetComponent<HealthComponent>();
+        SetInfectedAreaLeftText(FindObjectsOfType<ZombieBeacon>().Length);
         PlayerHealthComp.onHealthChanged += PlayerHealthChanged;
         PlayerHealthComp.BroadCastCurrentHealth();
     }

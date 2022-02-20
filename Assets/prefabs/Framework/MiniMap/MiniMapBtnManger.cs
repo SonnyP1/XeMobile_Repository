@@ -7,7 +7,7 @@ public class MiniMapBtnManger : MonoBehaviour
 {
 
     [SerializeField] CinemachineVirtualCamera CameraOne;
-    bool onOffToggle = false;
+    bool onOffToggle = true;
     public void MapBtn()
     {
         SwitchMapSize(onOffToggle);
