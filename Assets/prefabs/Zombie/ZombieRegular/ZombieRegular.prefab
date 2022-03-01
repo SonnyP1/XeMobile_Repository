@@ -138,7 +138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8770498686487853854, guid: 53a25f01160980f449be66bfb47a3d1e, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8770498686487853854, guid: 53a25f01160980f449be66bfb47a3d1e, type: 3}
       propertyPath: m_LocalScale.y
@@ -296,6 +296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bb86e0fb314fd4593dbc921d906d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CreditReward: 10
-  StaminaReward: 0.5
+  CreditReward: 50
+  StaminaReward: 0.9
   AttackRange: {fileID: 7372349810515782436}
